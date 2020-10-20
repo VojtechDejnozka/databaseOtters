@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -7,17 +8,19 @@ using System.Threading.Tasks;
 
 namespace databaseOtters.Model
 {
-    public class OtterDbContext : DbContext
+    public class OtterDbContext : IdentityDbContext
     {
-        public OtterDbContext([NotNullAttribute] DbContextOptions options) : base(options)
+        public OtterDbContext(DbContextOptions options) : base(options)
         {
         }
+
         public virtual DbSet<Otter> Otters { get; set; }
         public virtual DbSet<Place> Places { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Location>().HasData(
                 new Location { LocationID = 111, Name = "NP Šumava", Area = 33233 },
                 new Location { LocationID = 128, Name = "CHKO Jizerské hory", Area = 13165 },

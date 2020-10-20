@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace databaseOtters
 {
@@ -28,6 +30,15 @@ namespace databaseOtters
             services.AddDbContext<OtterDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDefaultIdentity<IdentityUser<string>>(o =>
+                {
+                    o.SignIn.RequireConfirmedEmail = false;
+                    o.SignIn.RequireConfirmedAccount = false;
+                    o.Password.RequiredLength = 2;
+                    o.Password.RequireDigit = false;
+                    o.Password.RequireUppercase = false;
+                    o.Password.RequireNonAlphanumeric = false;
+                }).AddEntityFrameworkStores<OtterDbContext>();
             services.AddRazorPages();
         }
 
@@ -47,11 +58,11 @@ namespace databaseOtters
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

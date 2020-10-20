@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,5 +27,9 @@ namespace databaseOtters.Model
         public int LocationId { get; set; }
 
         public ICollection<Otter> Children { get; set; }
+
+        public IdentityUser Founder { get; set; }
+        [ForeignKey("Founder")]
+        public string FounderId { get; set; }
     }
 }

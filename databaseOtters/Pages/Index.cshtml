@@ -1,28 +1,66 @@
 ﻿@page
-@model IndexModel
+@model databaseOtters.Pages.IndexModel
+
 @{
-    ViewData["Title"] = "Databáze vyder";
+    ViewData["Title"] = "Otters database";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Databáze vyder</h1>
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Tetování</th>
-                <th>Jméno</th>
-                <th>Barva</th>
-                <th>Místo</th>
-            </tr>
-            @foreach (var p in Model.Otters)
-            {
-                <tr>
-                    <td><a href="/Detail?id=@p.TattooID">@p.TattooID</a></td>
-                    <td>@p.Name</td>
-                    <td>@p.Color</td>
-                    <td>@p.PlaceName</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+<h1>Otters database</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Otter[0].TattooID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Otter[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Otter[0].Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Otter[0].Mother)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Otter[0].Place)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Otter[0].Founder)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Otter) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TattooID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mother.TattooID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Place.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Founder.Id)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.TattooID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.TattooID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.TattooID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

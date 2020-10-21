@@ -10,8 +10,8 @@ using databaseOtters.Model;
 namespace databaseOtters.Migrations
 {
     [DbContext(typeof(OtterDbContext))]
-    [Migration("20201020132951_M2")]
-    partial class M2
+    [Migration("20201021183445_M1")]
+    partial class M1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

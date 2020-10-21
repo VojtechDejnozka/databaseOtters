@@ -9,23 +9,34 @@ using databaseOtters.Model;
 
 namespace databaseOtters.Pages
 {
-    public class IndexModel : PageModel
+    public class DetailsModel : PageModel
     {
         private readonly databaseOtters.Model.OtterDbContext _context;
 
-        public IndexModel(databaseOtters.Model.OtterDbContext context)
+        public DetailsModel(databaseOtters.Model.OtterDbContext context)
         {
             _context = context;
         }
 
-        public IList<Otter> Otter { get;set; }
+        public Otter Otter { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
             Otter = await _context.Otters
                 .Include(o => o.Founder)
                 .Include(o => o.Mother)
-                .Include(o => o.Place).ToListAsync();
+                .Include(o => o.Place).FirstOrDefaultAsync(m => m.TattooID == id);
+
+            if (Otter == null)
+            {
+                return NotFound();
+            }
+            return Page();
         }
     }
 }

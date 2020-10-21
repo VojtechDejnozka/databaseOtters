@@ -194,11 +194,18 @@ namespace databaseOtters.Migrations
                     Color = table.Column<string>(nullable: true),
                     MotherId = table.Column<int>(nullable: true),
                     PlaceName = table.Column<string>(nullable: true),
-                    LocationId = table.Column<int>(nullable: false)
+                    LocationId = table.Column<int>(nullable: false),
+                    FounderId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Otters", x => x.TattooID);
+                    table.ForeignKey(
+                        name: "FK_Otters_AspNetUsers_FounderId",
+                        column: x => x.FounderId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Otters_Otters_MotherId",
                         column: x => x.MotherId,
@@ -243,18 +250,18 @@ namespace databaseOtters.Migrations
 
             migrationBuilder.InsertData(
                 table: "Otters",
-                columns: new[] { "TattooID", "Color", "LocationId", "MotherId", "Name", "PlaceName" },
-                values: new object[] { 1, "hnědá jako hodně", 111, null, "Velká Máti", "U Studánky" });
+                columns: new[] { "TattooID", "Color", "FounderId", "LocationId", "MotherId", "Name", "PlaceName" },
+                values: new object[] { 1, "hnědá jako hodně", null, 111, null, "Velká Máti", "U Studánky" });
 
             migrationBuilder.InsertData(
                 table: "Otters",
-                columns: new[] { "TattooID", "Color", "LocationId", "MotherId", "Name", "PlaceName" },
-                values: new object[] { 2, "Hnědá taky", 111, 1, "První Dcera", "U Studánky" });
+                columns: new[] { "TattooID", "Color", "FounderId", "LocationId", "MotherId", "Name", "PlaceName" },
+                values: new object[] { 2, "Hnědá taky", null, 111, 1, "První Dcera", "U Studánky" });
 
             migrationBuilder.InsertData(
                 table: "Otters",
-                columns: new[] { "TattooID", "Color", "LocationId", "MotherId", "Name", "PlaceName" },
-                values: new object[] { 3, "Hnědá trochu", 128, 1, "ZBloudilka", "Černé Jezero" });
+                columns: new[] { "TattooID", "Color", "FounderId", "LocationId", "MotherId", "Name", "PlaceName" },
+                values: new object[] { 3, "Hnědá trochu", null, 128, 1, "ZBloudilka", "Černé Jezero" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -294,6 +301,11 @@ namespace databaseOtters.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Otters_FounderId",
+                table: "Otters",
+                column: "FounderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Otters_MotherId",

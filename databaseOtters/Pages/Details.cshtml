@@ -1,0 +1,54 @@
+﻿@page
+@model databaseOtters.Pages.DetailsModel
+
+@{
+    ViewData["Title"] = "Otter details";
+}
+
+<h1>Otter details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Otter.TattooID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Otter.TattooID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Otter.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Otter.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Otter.Color)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Otter.Color)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Otter.Mother)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Otter.Mother.TattooID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Otter.Place)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Otter.Place.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Otter.Founder)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Otter.Founder.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Otter.TattooID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

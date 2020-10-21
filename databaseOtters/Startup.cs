@@ -11,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace databaseOtters
 {
@@ -39,7 +38,20 @@ namespace databaseOtters
                     o.Password.RequireUppercase = false;
                     o.Password.RequireNonAlphanumeric = false;
                 }).AddEntityFrameworkStores<OtterDbContext>();
-            services.AddRazorPages();
+            services.AddRazorPages(o => {
+                o.Conventions.AuthorizePage("/Create");
+                o.Conventions.AuthorizePage("/Edit");
+                o.Conventions.AuthorizePage("/Delete");
+
+                o.Conventions.AuthorizePage("/Locations/Create");
+                o.Conventions.AuthorizePage("/Locations/Edit");
+                o.Conventions.AuthorizePage("/Locations/Delete");
+
+                o.Conventions.AuthorizePage("/Places/Create");
+                o.Conventions.AuthorizePage("/Places/Edit");
+                o.Conventions.AuthorizePage("/Places/Delete");
+            }
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

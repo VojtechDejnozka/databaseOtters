@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using databaseOtters.Model;
 
-namespace databaseOtters.Pages
+namespace databaseOtters.Pages.Locations
 {
     public class IndexModel : PageModel
     {
@@ -18,14 +18,11 @@ namespace databaseOtters.Pages
             _context = context;
         }
 
-        public IList<Otter> Otter { get;set; }
+        public IList<Location> Location { get;set; }
 
         public async Task OnGetAsync()
         {
-            Otter = await _context.Otters
-                .Include(o => o.Founder)
-                .Include(o => o.Mother)
-                .Include(o => o.Place).ToListAsync();
+            Location = await _context.Locations.ToListAsync();
         }
     }
 }

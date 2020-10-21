@@ -30,7 +30,7 @@ namespace databaseOtters
             services.AddDbContext<OtterDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser<string>>(o =>
+            services.AddDefaultIdentity<IdentityUser>(o =>
                 {
                     o.SignIn.RequireConfirmedEmail = false;
                     o.SignIn.RequireConfirmedAccount = false;

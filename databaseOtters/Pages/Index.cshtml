@@ -1,10 +1,28 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Databáze vyder";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Databáze vyder</h1>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Tetování</th>
+                <th>Jméno</th>
+                <th>Barva</th>
+                <th>Místo</th>
+            </tr>
+            @foreach (var p in Model.Otters)
+            {
+                <tr>
+                    <td><a href="/Detail?id=@p.TattooID">@p.TattooID</a></td>
+                    <td>@p.Name</td>
+                    <td>@p.Color</td>
+                    <td>@p.PlaceName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
